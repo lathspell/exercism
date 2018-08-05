@@ -1,7 +1,7 @@
 class HandshakeCalculator {
     companion object {
 
-        fun calculateHandshake(i: Int) = mutableListOf<Signal>().apply {
+        fun calculateHandshake(i: Int) : List<Signal> = mutableListOf<Signal>().apply {
             when {
                 i and 1 == 1 -> add(Signal.WINK)
                 i and 2 == 1 -> add(Signal.DOUBLE_BLINK)

@@ -15,7 +15,7 @@ object Prime {
 
     // "inline" copies the code into the calling function. Saves some function calls
     // but makes the class file bigger. No measurable effect for simple tests though.
-    private inline fun isPrime(n: Int): Boolean {
+    private fun isPrime(n: Int): Boolean {
         return when {
             n < 2 -> false
             n == 2 -> true
