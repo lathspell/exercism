@@ -1,0 +1,13 @@
+exercism
+exercism.exe
+.idea
+kotlin/*/build*
+kotlin/*/.gradle
+kotlin/*/gradle*
+kotlin/*.iml
+kotlin/*/*.md
+kotlin/*/out
+kotlin/*/.solution.json
+kotlin/*/src/main/kotlin/.keep
+kotlin/*/src/test/
+*.swp
