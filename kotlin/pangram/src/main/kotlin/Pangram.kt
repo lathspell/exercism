@@ -1,11 +1,11 @@
+// changed: removed unused variable "abc"
+// changed: using "run()" to get rid of temporary variable and "return"
 class Pangram {
     companion object {
 
-        private val abc = listOf("a".."z")
-
-        fun isPangram(s: String): Boolean {
-            val lower = s.toLowerCase()
-            return ('a'..'z').all { lower.contains(it) }
-        }
+        fun isPangram(s: String): Boolean =
+                s.toLowerCase().run {
+                    ('a'..'z').all { c -> contains(c) }
+                }
     }
 }
