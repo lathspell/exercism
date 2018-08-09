@@ -1,7 +1,13 @@
+// changed: switched from single-line to "when" as seen in GeekTeam's solution as it's easier to grasp
 class Year(private val year: Int) {
 
     val isLeap: Boolean
-        get() = isMod(4) and ((isMod(400)) or (!isMod(100)))
+        get() = when {
+            isMod(400) -> true
+            isMod(100) -> false
+            isMod(4) -> true
+            else -> false
+        }
 
     private fun isMod(other: Int) = ((year % other) == 0)
 
