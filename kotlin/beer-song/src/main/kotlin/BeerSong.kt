@@ -1,21 +1,16 @@
+// changed: Added "when 1" case to get rid of all the temporary variables
 class BeerSong {
     companion object {
-        fun verses(start: Int, stop: Int): String {
-            fun calcNr(i: Int) = if (i == 0) "no more" else "$i"
-            fun calcBottles(i: Int) = if (i == 1) "bottle" else "bottles"
-            return (start downTo stop).map { nr ->
-                val nrBefore = calcNr(nr)
-                val nrAfter = calcNr(nr - 1)
-                val bottlesBefore = calcBottles(nr)
-                val bottlesAfter = calcBottles(nr - 1)
-                val oneOrIt = if (nr == 1) "it" else "one"
-                when (nr) {
-                    0 -> "${nrBefore.capitalize()} bottles of beer on the wall, $nrBefore bottles of beer.\n" +
-                            "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
-                    else -> "$nr $bottlesBefore of beer on the wall, $nr $bottlesBefore of beer.\n" +
-                            "Take $oneOrIt down and pass it around, $nrAfter $bottlesAfter of beer on the wall.\n"
+        fun verses(start: Int, stop: Int) =
+                (start downTo stop).joinToString("\n") { nr ->
+                    when (nr) {
+                        0 -> "No more bottles of beer on the wall, no more bottles of beer.\n" +
+                                "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
+                        1 -> "1 bottle of beer on the wall, 1 bottle of beer.\n" +
+                                "Take it down and pass it around, no more bottles of beer on the wall.\n"
+                        else -> "$nr bottles of beer on the wall, $nr bottles of beer.\n" +
+                                "Take one down and pass it around, ${nr - 1} bottle${if (nr - 1 == 1) "" else "s"} of beer on the wall.\n"
+                    }
                 }
-            }.joinToString("\n")
-        }
     }
 }
