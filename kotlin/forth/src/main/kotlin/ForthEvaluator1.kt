@@ -1,23 +1,9 @@
 import java.util.*
 
 // Primitive solution in one big function and custom operators using string replace.
-class ForthEvaluator {
+class ForthEvaluator1 {
 
     fun evaluateProgram(lines: List<String>): List<Int> {
-
-        val ops = mutableMapOf<String, Deque<Int>.() -> Unit>()
-
-        ops["+"] = {
-            require(size >= 2) { "Addition requires that the stack contain at least 2 values" }
-            push(pop() + pop());
-        }
-
-        ops["-"] = {
-            require(size >= 2) { "Subtraction requires that the stack contain at least 2 values" }
-            val last = pop()
-            push(pop() - last)
-        }
-
         val customOps = mutableMapOf<String, String>()
         val customOpsRegex = Regex(""":\s*(\S+)\s+(.+)\s+;""")
         val stack = ArrayDeque<Int>()
@@ -32,12 +18,16 @@ class ForthEvaluator {
                 val tokens = customLine.split(Regex("""\s+"""))
                 for (origToken in tokens) {
                     val token = origToken.toLowerCase()
-                    println("now $token")
                     when {
                         token.matches(Regex("""\d+""")) -> stack.push(token.toInt())
-                        token == "+" -> stack.apply { ops["+"]!!() }
-                        token == "-" -> stack.apply { ops["-"]!!() }
-
+                        token == "+" -> {
+                            require(stack.size >= 2) { "Addition requires that the stack contain at least 2 values" }
+                            stack.push(stack.pop() + stack.pop())
+                        }
+                        token == "-" -> {
+                            require(stack.size >= 2) { "Subtraction requires that the stack contain at least 2 values" }
+                            val last = stack.pop(); stack.push(stack.pop() - last)
+                        }
                         token == "/" -> {
                             require(stack.size >= 2) { "Division requires that the stack contain at least 2 values" }
                             val last = stack.pop();
