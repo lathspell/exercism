@@ -1,11 +1,12 @@
+// changed: Learned List<*> notation from Lidonis's solution. No need for List<Any?>!
 object Flattener {
-    fun flatten(list: List<Any?>): List<Any?> =
+
+    fun flatten(list: List<*>): List<Int> =
             list.flatMap {
                 when (it) {
-                    null -> emptyList()
                     is Int -> listOf(it)
                     is List<*> -> flatten(it)
-                    else -> throw IllegalArgumentException("Neither Int nor List: $it")
+                    else -> emptyList()
                 }
             }
 }

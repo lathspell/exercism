@@ -1,5 +1,6 @@
 // changed: Use init+require as seen in GrahamLea's solution
 // changed: Replaced nested for loops by windowed() as seen in yo7's solution
+// changed: Replaced sortDescending()+first() by max() as seen in swatteau's solution
 class Series(private val series: String) {
 
     init {
@@ -17,7 +18,6 @@ class Series(private val series: String) {
                                 acc * Character.getNumericValue(it)
                             }
                         }
-                        .sortedDescending()
-                        .first()
+                        .max()
             }
 }
