@@ -4,13 +4,13 @@ object ScrabbleScore {
 
     fun scoreWord(s: String) = s.toUpperCase().sumBy {
         when (it) {
-            'A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T' -> 1
-            'D', 'G' -> 2
-            'B', 'C', 'M', 'P' -> 3
-            'F', 'H', 'V', 'W', 'Y' -> 4
-            'K' -> 5
-            'J', 'X' -> 8
-            'Q', 'Z' -> 10
+            in "AEIOULNRST" -> 1
+            in "DG" -> 2
+            in "BCMP" -> 3
+            in "FHVWY" -> 4
+            in "K" -> 5
+            in "JX" -> 8
+            in "QZ" -> 10
             else -> 0
         }
     }
