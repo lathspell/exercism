@@ -1,21 +1,19 @@
-import java.util.*
-
+// changed: Using shuffle() instead of Random(); understood that reset() should only reset the instances name not the register
 class Robot {
 
     companion object {
         private val register = mutableSetOf<String>()
-        private val abc = ('A'..'Z').toList()
-        private val digits = ('0'..'9').toList()
-        private fun rnd(list: List<Char>) = list[Random().nextInt(list.size - 1)]
-        private fun genName(): String = ((1..2).map { rnd(abc) } + (1..3).map { rnd(digits) }).joinToString("")
+
+        private fun genName() = (('A'..'Z').shuffled().subList(0, 2)
+                + ('0'..'9').shuffled().subList(0, 3))
+                .joinToString("")
+
+        private fun genGloballyUniqueName() = generateSequence { genName() }.first { register.add(it) }
     }
 
-    val name: String
-        get() = generateSequence { genName() }
-                .first {
-                    register.add(it)
-                }
+    var name: String = genGloballyUniqueName()
 
-    fun reset() = register.clear()
-
+    fun reset() {
+        name = genGloballyUniqueName()
+    }
 }
