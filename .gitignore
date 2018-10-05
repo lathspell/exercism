@@ -17,6 +17,7 @@ java/*/.solution.json
 java/*/src/main/kotlin/.keep
 java/*/src/test/
 java/*/.meta
+java/*/.exercism
 kotlin/build
 kotlin/*/build*
 kotlin/.gradle
