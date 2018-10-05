@@ -16,6 +16,7 @@ java/settings.gradle
 java/*/.solution.json
 java/*/src/main/kotlin/.keep
 java/*/src/test/
+java/*/.meta
 kotlin/build
 kotlin/*/build*
 kotlin/.gradle
@@ -28,4 +29,5 @@ kotlin/*/out
 kotlin/*/.solution.json
 kotlin/*/src/main/kotlin/.keep
 kotlin/*/src/test/
+kotlin/*/.meta
 *.swp
