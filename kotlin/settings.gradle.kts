@@ -1,4 +1,4 @@
-rootProject.name = "Exercism Kotlin Track"
+rootProject.name = "My Exercism Kotlin Track"
 
 file("./").listFiles()
   .filter { it.isDirectory }
