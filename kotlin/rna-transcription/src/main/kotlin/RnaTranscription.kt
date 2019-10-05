@@ -1,4 +1,16 @@
-fun transcribeToRna(dna: String): String {
-    val map = mapOf('G' to 'C', 'C' to 'G', 'T' to 'A', 'A' to 'U')
-    return dna.map { it -> map[it] }.joinToString("")
+import java.lang.IllegalArgumentException
+
+fun transcribeToRna(s: String) : String {
+    val mappings = mapOf('G' to 'C', 'A' to 'U', 'T' to 'A', 'C' to 'G')
+    return s.map { mappings[it] }.joinToString("")
 }
+
+fun transcribeToRna_withCase(s: String) = s.map {
+    when (it) {
+        'G' -> 'C'
+        'A' -> 'U'
+        'T' -> 'A'
+        'C' -> 'G'
+        else -> throw IllegalArgumentException("Invalid character $it!")
+    }
+}.joinToString("")
