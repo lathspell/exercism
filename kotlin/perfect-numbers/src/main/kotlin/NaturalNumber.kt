@@ -3,14 +3,11 @@ enum class Classification {
 }
 
 fun classify(n: Int): Classification {
-    require(n > 0)
-    val sum = (n / 2 downTo 1).filter { n % it == 0 }.sum()
+    require(n > 0) { "Number must be natural!" }
+    val sum = (1..n / 2).filter { n % it == 0 }.sum()
     return when {
         sum > n -> Classification.ABUNDANT
         sum < n -> Classification.DEFICIENT
         else -> Classification.PERFECT
     }
 }
-
-
-
