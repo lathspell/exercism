@@ -31,4 +31,12 @@ kotlin/*/.solution.json
 kotlin/*/src/main/kotlin/.keep
 kotlin/*/src/test/
 kotlin/*/.meta
+go/*/example.go
+go/*/.exercism/
+go/*/go.mod
+go/*.iml
+go/*/*.iml
+go/*/*.md
+go/*/.meta
+go/*/*_test.go
 *.swp
