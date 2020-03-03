@@ -4,6 +4,7 @@ exercism
 exercism.exe
 gradle*
 .idea
+*.iml
 java/*/build*
 java/.gradle*
 java/*/.gradle
