@@ -28,24 +28,24 @@ func (c Clock) Subtract(minutes int) Clock {
 }
 
 func (c Clock) addBoth(hours, minutes int) Clock {
-    overflowHours := 0
+	overflowHours := 0
 
-    c.minutes += minutes
-    for c.minutes >= 60 {
-        c.minutes -= 60
-        overflowHours++
-    }
+	c.minutes += minutes
+	for c.minutes >= 60 {
+		c.minutes -= 60
+		overflowHours++
+	}
 	for c.minutes < 0 {
 		c.minutes += 60
 		overflowHours--
 	}
 
-    c.hours += hours
-    c.hours += overflowHours
-    for c.hours >= 24 {
-        c.hours -= 24
-    }
-    for c.hours < 0 {
+	c.hours += hours
+	c.hours += overflowHours
+	for c.hours >= 24 {
+		c.hours -= 24
+	}
+	for c.hours < 0 {
 		c.hours += 24
 	}
 
