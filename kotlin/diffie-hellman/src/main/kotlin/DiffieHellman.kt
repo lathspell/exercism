@@ -1,7 +1,7 @@
 import java.math.BigInteger
 import java.util.Random
 
-class DiffieHellman {
+object DiffieHellman {
 
     fun privateKey(prime: BigInteger): BigInteger {
         val rnd = Random()
