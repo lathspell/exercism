@@ -2,94 +2,62 @@ package matrix
 
 import (
 	"fmt"
-	"regexp"
+	"strconv"
 	"strings"
 )
 
 type Matrix [][]int
 
 func New(s string) (Matrix, error) {
-	if matched, err := regexp.Match(`^[\d\n ]+$`, []byte(s)); !matched || err != nil {
-		return nil, fmt.Errorf("illegal characters")
-	}
-
-	m := new(Matrix)
-	mp := *m
-
-	lines := strings.Split(s, "\n")
-	colSplitter := regexp.MustCompile(`\d+`)
-	expectedCols := -1
-	for y := 0; y < len(lines); y++ {
-		line := lines[y]
-		tokenSubstrings := colSplitter.FindAll([]byte(line), -1)
-
-		// Check for correct number of columns
-		actualCols := len(tokenSubstrings)
-		if expectedCols == -1 {
-			expectedCols = actualCols
-		} else if expectedCols != actualCols {
-			return nil, fmt.Errorf("unexpected number of columns %d instead of %d", actualCols, expectedCols)
-		}
-
-		mp = append(mp, []int{})
-		for x := 0; x < len(tokenSubstrings); x++ {
-			tokenSubstring := string(tokenSubstrings[x])
-			var value int
-			_, err := fmt.Sscanf(tokenSubstring, "%d", &value)
-			if err != nil {
+	rows := strings.Split(s, "\n")
+	m := make([][]int, len(rows))
+	for r, line := range rows {
+		columns := strings.Split(strings.Trim(line, " "), " ")
+		m[r] = make([]int, len(columns))
+		for c, column := range columns {
+			if value, err := strconv.Atoi(column); err == nil {
+				m[r][c] = value
+			} else {
 				return nil, err
 			}
-			mp[y] = append(mp[y], value)
+		}
+
+		if r > 0 && len(m[r-1]) != len(m[r]) {
+			return nil, fmt.Errorf("inconsistent number of columns")
 		}
 	}
 
-	return mp, nil
+	return m, nil
 }
 
-func (m *Matrix) Set(r int, c int, value int) bool {
-	mp := *m
-	numRows, numCols := m.dimensions()
-	if r < 0 || r >= numRows || c < 0 || c >= numCols {
+func (m Matrix) Set(r int, c int, value int) bool {
+	if r < 0 || r >= len(m) || c < 0 || c >= len(m[0]) {
 		return false
 	}
-
-	mp[r][c] = value
+	m[r][c] = value
 	return true
 }
 
-func (m *Matrix) Rows() [][]int {
-	mp := *m
-	numRows, numCols := m.dimensions()
-
-	m2 := make([][]int, numRows)
-	for i := 0; i < numRows; i++ {
-		m2[i] = make([]int, numCols)
-		copy(m2[i], mp[i])
+func (m Matrix) Rows() [][]int {
+	m2 := make([][]int, len(m))
+	for i, row := range m {
+		m2[i] = make([]int, len(row))
+		copy(m2[i], row)
 	}
 	return m2
 }
 
-func (m *Matrix) Cols() [][]int {
-	mp := *m
-	numRows, numCols := m.dimensions()
+func (m Matrix) Cols() [][]int {
+	numRows := len(m)
+	numCols := len(m[0])
 
 	m2 := make([][]int, numCols)
 	for c := 0; c < numCols; c++ {
 		m2[c] = make([]int, numRows)
 		for r := 0; r < numRows; r++ {
-			m2[c][r] = mp[r][c]
+			m2[c][r] = m[r][c]
 		}
 	}
 
 	return m2
-}
-
-func (m *Matrix) dimensions() (int, int) {
-	mp := *m
-	numRows := len(mp)
-	numCols := 0
-	if numRows > 0 {
-		numCols = len(mp[0])
-	}
-	return numRows, numCols
 }
