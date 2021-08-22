@@ -6,6 +6,7 @@ import (
 
 type Kind string
 
+// could have used "Nat Kind = iota" but strings are more readable when debugging
 const (
 	NaT = "not a triangle"
 	Equ = "equilateral"
