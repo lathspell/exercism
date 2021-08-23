@@ -35,6 +35,7 @@ kotlin/*/.meta
 go/*/example.go
 go/*/.exercism/
 go/*/go.mod
+go/*/go.sum
 go/*.iml
 go/*/*.iml
 go/*/*.md
